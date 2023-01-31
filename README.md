@@ -1,3 +1,3 @@
 # MATLAB_Plot
 
-![normalized-stress](Figure9/normalized-stress.png)
+![normalized-stress](Figure9/normalized-stress.PNG)
