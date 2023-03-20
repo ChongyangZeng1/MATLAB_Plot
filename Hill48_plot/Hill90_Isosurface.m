@@ -12,27 +12,26 @@ Sig75 = 356.1;
 Sig90 = 359.4;
 Sigb = 345;
 
-
 Sig45 =Sig45/Sig00;
 Sig90 =Sig90/Sig00;
 Sigb =Sigb/Sig00;
 Sig00 = 1;
-% Calculate F1, G1, and H1 coefficients
-F1 = (Sig00/Sig90)^2 - 1 + (Sig00/Sigb)^2;
-G1 = 1 - (Sig00/Sig90)^2 + (Sig00/Sigb)^2;
-H1 = 1 + (Sig00/Sig90)^2 - (Sig00/Sigb)^2;
-N1 =  (4*(Sig00)^2)/(Sig45)^2 - ((Sig00)^2)/((Sigb)^2);
-N1=3;
 % Range of stress components
 sigma1_range = linspace(0, 2, 100);
 sigma2_range = linspace(-2, 2, 100);
 tau12_range = linspace(0, 2, 100);
 
 % Create a meshgrid for stress components
-[sigma1, sigma2, tau12] = meshgrid(sigma1_range, sigma2_range, tau12_range);
+[x, y, tau12] = meshgrid(sigma1_range, sigma2_range, tau12_range);
 
 % Calculate the Hill48 yield function value for plane stress conditions (sigma3 = 0)
-hill48 = (G1  * (sigma1.^2) + F1  * (sigma2.^2) +  H1 * (sigma1 - sigma2).^2)/2 + N1*(tau12.^2);
+tau =330;
+m=2;
+c=Sigb/Tau;
+a = 0.25*((2*Sigb/Sig90)^m-(2*Sigb/Sig00)^m);
+b = 0.5*((2*Sigb/Sig00)^m+(2*Sigb/Sig90)^m)-(2*Sigb/Sig45)^m;
+
+hill90=(x+y)^m+((c)^m)*(x-y)^m+((x^2+y^2)^(0.5*m-1))*(-2*a*(x^2-y^2)+b*(x-y)^2);
 
 % Find the surface where Hill48 yield function equals 1
 isosurface_threshold = 1;
