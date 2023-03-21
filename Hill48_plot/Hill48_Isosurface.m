@@ -1,3 +1,6 @@
+clc
+close all
+clear
 % Constants for the Hill 1948 plasticity model
 % Sig00 = 1; % Yield stress in uniaxial tension along the rolling direction
 % Sig90 = .9; % Yield stress in uniaxial tension along the transverse direction
@@ -33,19 +36,19 @@ N1 = (4*(Sig00)^2)/(Sig45)^2 - ((Sig00)^2 - 1/sqrt(3)*Tau^2)/((Sigb)^2);
 % N1 = 3;
 
 % Range of stress components
-sigma1_range = linspace(-1, 1.5, 100);
-sigma2_range = linspace(-1, 1.5, 100);
+sigma1_range = linspace(-1.3, 1.3, 100);
+sigma2_range = linspace(-1.3, 1.3, 100);
 tau12_range = linspace(-1, 1, 100);
 
-% xlim([-1 1.5])
-% xticks(-1:0.5:1.5)
-% ylim([-1 1.5])
-% yticks(-1:0.5:1.5)
-% zlim([-1 1])
-% zticks(-1:0.5:1)
+xlim([-1.5 1.5])
+xticks(-1.5:0.5:1.5)
+ylim([-1.5 1.5])
+yticks(-1.5:0.5:1.5)
+zlim([-1 1])
+zticks(-1:0.5:1)
 
 % Create a meshgrid for stress components
-% [sigma1, sigma2, tau12] = meshgrid(sigma1_range, sigma2_range, tau12_range);
+[sigma1, sigma2, tau12] = meshgrid(sigma1_range, sigma2_range, tau12_range);
 
 % Calculate the Hill48 yield function value for plane stress conditions (sigma3 = 0)
 hill48 = (G1  * (sigma1.^2) + F1  * (sigma2.^2) +  H1 * (sigma1 - sigma2).^2)/2 + N1*(tau12.^2);
@@ -56,11 +59,14 @@ vonMises = sqrt(.5*((sigma1 - sigma2).^2 + sigma2.^2 + sigma1.^2) + 3 * tau12.^2
 % Create a 3D surface plot
 % figure('defaultAxesColorOrder',[0 0 0; 0 0 1; 0 0 1; 0 0 1;])
 % figure
-h1 = patch(isosurface(sigma1, sigma2, tau12, hill48, isosurface_threshold));
-set(h1, 'FaceColor', 'b', 'EdgeColor', 'none', 'FaceAlpha', 0.3);
-hold on;
+isosurface_threshold = 1;
 h2 = patch(isosurface(sigma1, sigma2, tau12, vonMises, isosurface_threshold));
-set(h2, 'FaceColor', 'g', 'EdgeColor', 'none', 'FaceAlpha', 0.3);
+set(h2, 'FaceColor', 'b', 'EdgeColor', 'none', 'FaceAlpha', 0.3);
+
+h1 = patch(isosurface(sigma1, sigma2, tau12, hill48, isosurface_threshold));
+set(h1, 'FaceColor', 'g', 'EdgeColor', 'none', 'FaceAlpha', 0.3);
+hold on;
+
 
 % xlabel('Stress Component 1 (\sigma_{11})');
 xlabel('\sigma_{11}','Rotation',20);
@@ -70,7 +76,7 @@ zlabel('\tau_{12}');
 axis equal;
 grid on;
 view(3);
-
+view(gca,[-17.3126110111832 41.1484221007721]);
 
 % Experimental results from the pure shear test
 SH_sigma1 = 0; % Replace with your experimental value
@@ -103,13 +109,15 @@ l = legend({'Mon Mises','Hill 48','Experimental'}...
 % hold off;
 legend boxoff
 % grid off
-% print(gcf,'-dtiffn','Hill48_3D_full')
-% view([0.841279383261027 90]);
-% xlim([-1.5 1.5])
-% xticks(-1.5:0.5:1.5)
-% ylim([-1.5 1.5])
-% yticks(-1.5:0.5:1.5)
-% l = legend({'Mon Mises','Hill 48','Experimental'}...
-%     ,'FontSize',12,'location','northeastoutside');
-% % hold off;
-% print(gcf,'-dtiffn','Hill48_2D_full')
+print(gcf,'-dtiffn','Hill48_3D_full')
+view(gca,[10.945382295558 25.1705137306616]);
+print(gcf,'-dtiffn','Hill48_3D_full_2')
+xlim([-1.5 1.5])
+xticks(-1.5:0.5:1.5)
+ylim([-1.5 1.5])
+yticks(-1.5:0.5:1.5)
+view(gca,[0.289609607886099 90]);
+l = legend({'Mon Mises','Hill 48','Experimental'}...
+    ,'FontSize',12,'location','northeastoutside');
+% hold off;
+print(gcf,'-dtiffn','Hill48_2D_full')
