@@ -11,8 +11,9 @@ Sig65 = 349.1;
 Sig75 = 356.1;
 Sig90 = 359.4;
 Sigb = 345;
-Tau = 330;
+Tau = 340;
 Tau = Tau/Sig00;
+Tau = 1/sqrt(3);
 
 
 Sig45 =Sig45/Sig00;
@@ -20,16 +21,16 @@ Sig90 =Sig90/Sig00;
 Sigb =Sigb/Sig00;
 Sig00 = 1;
 % Calculate F1, G1, and H1 coefficients
-% F1 = (Sig00/Sig90)^2 - 1 + (Sig00/Sigb)^2;
-F1 = 1;
-% G1 = 1 - (Sig00/Sig90)^2 + (Sig00/Sigb)^2;
-G1 = 1;
-% H1 = 1 + (Sig00/Sig90)^2 - (Sig00/Sigb)^2;
-H1 = 1;
+F1 = (Sig00/Sig90)^2 - 1 + (Sig00/Sigb)^2;
+% F1 = 1;
+G1 = 1 - (Sig00/Sig90)^2 + (Sig00/Sigb)^2;
+% G1 = 1;
+H1 = 1 + (Sig00/Sig90)^2 - (Sig00/Sigb)^2;
+% H1 = 1;
 % N1 =  (4*(Sig00)^2)/(Sig45)^2 - ((Sig00)^2)/((Sigb)^2);
-% N1 = (4*(Sig00)^2)/(Sig45)^2 - ((Sig00)^2 + 2*Tau^2)/((Sigb)^2);
+N1 = (4*(Sig00)^2)/(Sig45)^2 - ((Sig00)^2 - 1/sqrt(3)*Tau^2)/((Sigb)^2);
 % N1 = (4*(Sig00)^2)/(Sig45)^2 - ((Sig00)^2 + Tau^2)/((Sigb)^2);
-N1 = 3;
+% N1 = 3;
 
 % Range of stress components
 sigma1_range = linspace(0, 2, 100);
@@ -64,10 +65,9 @@ view(3);
 % Experimental results from the pure shear test
 experimental_sigma1 = 0; % Replace with your experimental value
 experimental_sigma2 = 0; % Replace with your experimental value
-experimental_tau12 = Tau*.6; % Replace with your experimental value
+experimental_tau12 = Tau; % Replace with your experimental value
 
 % Plot the experimental point on the 3D surface
 hold on;
 plot3(experimental_sigma1, experimental_sigma2, experimental_tau12, 'ro', 'MarkerSize', 10, 'MarkerFaceColor', 'r');
-legend('Hill48 Yield Surface', 'Experimental Result');
-hold off;
+legend('Hill48 Yield Surface', 'von Mises Yield Surface', 'Experimental Result');hold off;
