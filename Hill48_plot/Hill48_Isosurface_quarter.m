@@ -33,16 +33,16 @@ N1 = (4*(Sig00)^2)/(Sig45)^2 - ((Sig00)^2 - 1/sqrt(3)*Tau^2)/((Sigb)^2);
 % N1 = 3;
 
 % Range of stress components
-sigma1_range = linspace(-1, 1.5, 100);
-sigma2_range = linspace(-1, 1.5, 100);
-tau12_range = linspace(-1, 1, 100);
+sigma1_range = linspace(0, 1.5, 100);
+sigma2_range = linspace(0, 1.5, 100);
+tau12_range = linspace(0, 1.5, 100);
 
-% xlim([-1 1.5])
-% xticks(-1:0.5:1.5)
-% ylim([-1 1.5])
-% yticks(-1:0.5:1.5)
-% zlim([-1 1])
-% zticks(-1:0.5:1)
+xlim([0 1.2])
+xticks(0:0.5:1.2)
+ylim([0 1.2])
+yticks(0:0.5:1.2)
+zlim([0 0.6])
+zticks(0:0.2:0.6)
 
 % Create a meshgrid for stress components
 % [sigma1, sigma2, tau12] = meshgrid(sigma1_range, sigma2_range, tau12_range);
@@ -103,13 +103,13 @@ l = legend({'Mon Mises','Hill 48','Experimental'}...
 % hold off;
 legend boxoff
 % grid off
-% print(gcf,'-dtiffn','Hill48_3D_full')
-% view([0.841279383261027 90]);
-% xlim([-1.5 1.5])
-% xticks(-1.5:0.5:1.5)
-% ylim([-1.5 1.5])
-% yticks(-1.5:0.5:1.5)
-% l = legend({'Mon Mises','Hill 48','Experimental'}...
-%     ,'FontSize',12,'location','northeastoutside');
-% % hold off;
-% print(gcf,'-dtiffn','Hill48_2D_full')
+print(gcf,'-dtiffn','Hill48_3D_quarter')
+view([0.841279383261027 90]);
+xlim([0 1.5])
+xticks(0:0.5:1.5)
+ylim([0 1.5])
+yticks(0:0.5:1.5)
+l = legend({'Mon Mises','Hill 48','Experimental'}...
+    ,'FontSize',12,'location','northeastoutside');
+% hold off;
+print(gcf,'-dtiffn','Hill48_2D_quarter')
