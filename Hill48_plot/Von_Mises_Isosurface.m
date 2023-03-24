@@ -61,8 +61,16 @@ vonMises = sqrt(.5*((sigma1 - sigma2).^2 + sigma2.^2 + sigma1.^2) + 3 * tau12.^2
 % figure
 isosurface_threshold = 1;
 h2 = patch(isosurface(sigma1, sigma2, tau12, vonMises, isosurface_threshold));
-set(h2, 'FaceColor', 'b', 'EdgeColor', 'none', 'FaceAlpha', 0.3);
-
+% set(h2, 'FaceColor', 'b', 'EdgeColor', 'none', 'FaceAlpha', 0.3);
+ctau12 = smooth3(rand(size(tau12)),'box',7);
+isonormals(sigma1, sigma2, tau12,vonMises,h2)
+isocolors(sigma1, sigma2, tau12,tau12,h2)
+h2.FaceColor = 'interp';
+h2.EdgeColor = 'none';
+colorbar
+% axis tight
+% camlight
+% lighting gouraud
 % h1 = patch(isosurface(sigma1, sigma2, tau12, hill48, isosurface_threshold));
 % set(h1, 'FaceColor', 'b', 'EdgeColor', 'none', 'FaceAlpha', 0.3);
 % hold on;
@@ -120,4 +128,5 @@ yticks(-1.5:0.5:1.5)
 l = legend({'Mon Mises','Experimental'}...
     ,'FontSize',12,'location','northeastoutside');
 % hold off;
+
 print(gcf,'-dtiffn','Mises_2D_full')
