@@ -6,14 +6,10 @@ clc
 % Sig90 = .9; % Yield stress in uniaxial tension along the transverse direction
 % Sigb = 1.2; % Yield stress in uniaxial tension along the normal direction
 
-Sig00 = 335.4;
-Sig15 = 335.1;
-Sig30 = 338.1;
-Sig45 = 343.2;
-Sig65 = 349.1;
-Sig75 = 356.1;
-Sig90 = 359.4;
-Sigb = 345;
+Sig00 = 345.5;
+Sig45 = 346.3;
+Sig90 = 350.4;
+Sigb = 365;
 % Tau = 340;
 % Tau = Tau/Sig00;
 Tau = 1/sqrt(3);
