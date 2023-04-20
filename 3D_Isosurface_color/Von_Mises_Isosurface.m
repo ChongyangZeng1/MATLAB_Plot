@@ -2,18 +2,17 @@ clc
 close all
 clear
 % Constants for the Hill 1948 plasticity model
-% Sig00 = 1; % Yield stress in uniaxial tension along the rolling direction
-% Sig90 = .9; % Yield stress in uniaxial tension along the transverse direction
-% Sigb = 1.2; % Yield stress in uniaxial tension along the normal direction
-
-Sig00 = 335.4;
-Sig15 = 335.1;
-Sig30 = 338.1;
-Sig45 = 343.2;
-Sig65 = 349.1;
-Sig75 = 356.1;
-Sig90 = 359.4;
-Sigb = 345;
+%%
+Sig00 = 340;
+Sig15 = 340;
+Sig30 = 340;
+Sig45 = 340;
+Sig65 = 340;
+Sig75 = 340;
+Sig90 = 340;
+Sigb = 340;
+Sigshear = 340;
+Sigshear = Sigshear/Sig00;
 % Tau = 340;
 % Tau = Tau/Sig00;
 Tau = 1/sqrt(3);
@@ -91,10 +90,18 @@ view(gca,[-17.31 41.14]);
 SH_sigma1 = 0; % Replace with your experimental value
 SH_sigma2 = 0; % Replace with your experimental value
 SH_tau12 = Tau; % Replace with your experimental value
+% Experimental results from the 0° shear test
+SH_0_sigma1 = Sigshear/sqrt(3); 
+SH_0_sigma2 = -Sigshear/sqrt(3);
+SH_0_tau12 = 0; 
 % Experimental results from the 0° tension
 T0_sigma1 = Sig00; 
 T0_sigma2 = 0; 
 T0_tau12 = 0; 
+% Experimental results from the 45° tension
+T45_sigma1 = Sig45/2; 
+T45_sigma2 = Sig45/2; 
+T45_tau12 = Sig45/2; 
 % Experimental results from the 90°
 T90_sigma1 = 0; 
 T90_sigma2 = Sig90; 
@@ -105,10 +112,12 @@ Tb_sigma2 = Sigb;
 Tb_tau12 = 0;
 % Plot the experimental point on the 3D surface
 hold on;
-% plot3(SH_sigma1, SH_sigma2, SH_tau12, 'ro', 'MarkerSize', 10, 'MarkerFaceColor', 'r');
+plot3(SH_sigma1, SH_sigma2, SH_tau12, 'bo', 'MarkerSize', 8, 'MarkerFaceColor', 'b');
+plot3(SH_0_sigma1, SH_0_sigma2, SH_0_tau12, 'ro', 'MarkerSize', 8, 'MarkerFaceColor', 'r');
 plot3(T0_sigma1, T0_sigma2, T0_tau12, 'ro', 'MarkerSize', 8, 'MarkerFaceColor', 'r');
 plot3(T90_sigma1, T90_sigma2, T90_tau12, 'ro', 'MarkerSize', 8, 'MarkerFaceColor', 'r');
 plot3(Tb_sigma1, Tb_sigma2, Tb_tau12, 'ro', 'MarkerSize', 8, 'MarkerFaceColor', 'r');
+plot3(T45_sigma1, T45_sigma2, T45_tau12, 'bo', 'MarkerSize', 8, 'MarkerFaceColor', 'b');
 
 set(gca,'xcolor','k','ycolor','k','zcolor','k','linewidth',1.5,'FontSize',14,'GridColor',...
     [0 0 1])
@@ -119,20 +128,10 @@ legend off
 % hold off;
 % legend boxoff
 % grid off
-set(h2, 'FaceAlpha', 0.6);
+set(h2, 'FaceAlpha', 0.3);
 colormap('jet');
 print(gcf,'-dtiffn','Mises_3D_full')
-
-view([-48.5877218236778 17.3077432710233]);
-xlim([0 1.2])
-xticks(0:0.2:1.2)
-ylim([0 1.2])
-yticks(0:0.2:1.2)
-zlim([0 0.6])
-zticks(0:0.2:0.6)
-colorbar('Limits',[0 0.6])
-print(gcf,'-dtiffn','Mises_3D_full_2')
-colormap('jet');
+%%
 view(gca,[0.289609607886099 90]);
 xlim([-1.5 1.5])
 xticks(-1.5:0.5:1.5)
@@ -142,6 +141,37 @@ yticks(-1.5:0.5:1.5)
 %     ,'FontSize',12,'location','northeastoutside');
 legend off
 % hold off;
-set(h2, 'FaceAlpha', 1);
+set(h2, 'FaceAlpha', 0.5);
 colormap('jet');
 print(gcf,'-dtiffn','Mises_2D_full')
+%%
+view([-17 20]);
+xlim([0 1.2])
+xticks(0:0.2:1.2)
+ylim([-1.2 1.2])
+yticks(-1.2:0.4:1.2)
+zlim([0 0.6])
+zticks(0:0.2:0.6)
+colorbar off
+colormap('jet');
+set(h2, 'FaceAlpha', 0.3);
+line([0,0,0],[0,1.2,0],'Color','r',...
+    'LineStyle','-','LineWidth',2)
+hold on
+line([1.2,0,0],[0,0,0],'Color','r',...
+    'LineStyle','-','LineWidth',2)
+hold on
+% line([0,0,0],[1.1,1.1,0],'Color','r',...
+%     'LineStyle','-','LineWidth',3)
+% hold on
+m1=[0 1.1];
+m2=[0 1.1];
+m3=[0 0];
+plot3(m1,m2,m3,'Color','r',...
+    'LineStyle','-','LineWidth',2)
+n1=[0 0];
+n2=[0 0];
+n3=[0 1];
+plot3(n1,n2,n3,'Color','b',...
+    'LineStyle','-','LineWidth',2)
+print(gcf,'-dtiffn','Mises_3D_full_2')

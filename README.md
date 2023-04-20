@@ -1,5 +1,5 @@
 # MATLAB_Plot
 
-![normalized-stress](Figure9/normalized-stress.PNG)
+![FLB_Uni siegen](MATLAB_plot.PNG)
 
 FLB
