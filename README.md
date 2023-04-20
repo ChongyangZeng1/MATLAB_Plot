@@ -1,5 +1,5 @@
 # MATLAB_Plot
 
-![FLB_Uni siegen](MATLAB_plot.PNG)
+![FLB_Uni siegen](PLot_example_FLB.PNG)
 
 FLB
