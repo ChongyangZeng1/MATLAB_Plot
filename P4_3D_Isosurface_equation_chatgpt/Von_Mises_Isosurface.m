@@ -102,7 +102,7 @@ plot3(Tb_sigma1, Tb_sigma2, Tb_tau12, 'ro', 'MarkerSize', 10, 'MarkerFaceColor',
 set(gca,'xcolor','k','ycolor','k','zcolor','k','linewidth',1.5,'FontSize',14,'GridColor',...
     [0 0 1])
 % legend('Hill48 Yield Surface', 'von Mises Yield Surface', 'Experimental Result');
-l = legend({'Mon Mises','Experimental'}...
+l = legend({'Von Mises','Experimental'}...
     ,'FontSize',12,'location','northeast');
 % hold off;
 legend boxoff
@@ -115,7 +115,7 @@ xlim([-1.5 1.5])
 xticks(-1.5:0.5:1.5)
 ylim([-1.5 1.5])
 yticks(-1.5:0.5:1.5)
-l = legend({'Mon Mises','Experimental'}...
+l = legend({'Von Mises','Experimental'}...
     ,'FontSize',12,'location','northeastoutside');
 % hold off;
 
