@@ -8,6 +8,7 @@ All available scripts are written for [Mathworks MATLAB](https://de.mathworks.co
 
 *Chongyang Zeng, M.Sc.*<br>
 *Max-Maria Bisch, M.Sc.*<br>
+*Team Material Mechanics*<br>
 *Universität Siegen/University of Siegen*<br>
 *Lehrstuhl für Fahrzeugleichtbau/Institute of Automotive Lightweight Design*<br>
 *Breite Straße 11*<br>
